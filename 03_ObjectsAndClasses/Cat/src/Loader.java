@@ -29,5 +29,19 @@ public class Loader
             cat4.feed(1.0);
         }
         System.out.println(cat4.getStatus());
+
+
+        System.out.println("Начальный вес кота: " + cat2.getWeight());
+
+        cat2.pee();
+        cat2.feed(100.0);
+        cat2.pee();
+        cat2.feed(150.0);
+        cat2.pee();
+
+        double WeightOfEatenFood = cat2.getWeightOfEatenFood();
+
+        System.out.println("Текущий вес кота: " + cat2.getWeight());
+        System.out.println("Кот съел: "+ WeightOfEatenFood);
     }
 }

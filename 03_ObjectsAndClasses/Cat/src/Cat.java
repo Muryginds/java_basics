@@ -22,6 +22,12 @@ public class Cat
         System.out.println("Meow");
     }
 
+    public void pee()
+    {
+        weight = weight - 10;
+        System.out.println("Cat peed..");
+    }
+
     public void feed(Double amount)
     {
         weight = weight + amount;
@@ -35,6 +41,11 @@ public class Cat
     public Double getWeight()
     {
         return weight;
+    }
+
+    public Double getWeightOfEatenFood()
+    {
+        return weight - originWeight;
     }
 
     public String getStatus()
