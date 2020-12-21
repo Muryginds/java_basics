@@ -4,25 +4,25 @@ public class Loader
     public static void main(String[] args)
     {
         Cat cat0 = new Cat();
-        cat0.SetColor(Color.BLACK);
+        cat0.setColor(Color.BLACK);
         System.out.println("Текущий вес кота0: " + cat0.getWeight());
         cat0.feed(1.0);
         System.out.println(cat0.getStatus());
 
         Cat cat1 = new Cat();
-        cat0.SetColor(Color.WHITE);
+        cat0.setColor(Color.WHITE);
         System.out.println("Текущий вес кота1: " + cat1.getWeight());
         cat1.feed(1.0);
         System.out.println(cat1.getStatus());
 
         Cat cat2 = new Cat();
-        cat0.SetColor(Color.BROWN);
+        cat0.setColor(Color.BROWN);
         System.out.println("Текущий вес кота2: " + cat2.getWeight());
         cat2.feed(6000.0);
         System.out.println(cat2.getStatus());
 
         Cat cat3 = new Cat();
-        cat0.SetColor(Color.GREY);
+        cat0.setColor(Color.GREY);
         System.out.println("Текущий вес кота3: " + cat3.getWeight());
         cat3.feed(1.0);
 
@@ -33,7 +33,7 @@ public class Loader
         System.out.println(cat3.getStatus());
 
         Cat cat4 = new Cat();
-        cat0.SetColor(Color.ORANGE);
+        cat0.setColor(Color.ORANGE);
         System.out.println("Текущий вес кота4: " + cat4.getWeight());
         cat4.feed(1.0);
 
@@ -60,5 +60,23 @@ public class Loader
          */
         System.out.println("Количество живых котов:" + Cat.getCount());
 
+        Cat cat5 = getKitten();
+        System.out.println(cat5.getWeight());
+
+        Cat cat6 = getKitten();
+        System.out.println(cat6.getWeight());
+
+        Cat cat7 = getKitten();
+        System.out.println(cat7.getWeight());
+
+        System.out.println(Cat.getCount());
+
+
     }
+
+    private static Cat getKitten(){
+        Cat cat = new Cat(1100);
+        return cat;
+    }
+
 }

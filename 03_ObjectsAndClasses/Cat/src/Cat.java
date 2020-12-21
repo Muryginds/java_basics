@@ -13,13 +13,13 @@ public class Cat
     private double maxWeight;
 
     private double foodEaten;
-    private boolean isAlive;
+    public boolean isAlive;
 
     public static int getCount(){
         return count;
     }
 
-    public void SetColor(Color type){ }
+    public void setColor(Color type){ }
 
     public Cat()
     {
@@ -30,6 +30,13 @@ public class Cat
         foodEaten = 0;
         count = count + 1;
         isAlive = true;
+    }
+
+    public Cat(double weight)
+    {
+        this();
+        this.weight = weight;
+        originWeight = weight;
     }
 
     public void meow()
