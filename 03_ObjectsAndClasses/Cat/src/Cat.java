@@ -19,6 +19,8 @@ public class Cat
         return count;
     }
 
+    public void SetColor(Color type){ }
+
     public Cat()
     {
         weight = 1500.0 + 3000.0 * Math.random();
