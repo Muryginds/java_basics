@@ -5,6 +5,7 @@ public class Cat
     public static final double MIN_WEIGHT = 1000.0;
     public static final double MAX_WEIGHT = 9000.0;
 
+    public Color color;
     public static int count = 0;
     private double originWeight;
     private double weight;
@@ -19,7 +20,13 @@ public class Cat
         return count;
     }
 
-    public void setColor(Color type){ }
+    public void setColor(Color type){
+        color = type;
+    }
+
+    public Color getColor(){
+        return color;
+    }
 
     public Cat()
     {

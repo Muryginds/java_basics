@@ -1,5 +1,5 @@
 import core.*;
-import core.Camera;
+
 
 import java.util.Scanner;
 
@@ -38,6 +38,8 @@ public class RoadController
             }
 
             System.out.println("Общая сумма к оплате: " + price + " руб.");
+
+            System.out.println(car.getIsSpecial());
         }
     }
 
