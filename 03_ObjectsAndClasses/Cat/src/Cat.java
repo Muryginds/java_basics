@@ -7,13 +7,15 @@ public class Cat
     private double minWeight;
     private double maxWeight;
 
+    private double foodEaten;
+
     public Cat()
     {
         weight = 1500.0 + 3000.0 * Math.random();
         originWeight = weight;
         minWeight = 1000.0;
         maxWeight = 9000.0;
-
+        foodEaten = 0;
     }
 
     public void meow()
@@ -31,6 +33,7 @@ public class Cat
     public void feed(Double amount)
     {
         weight = weight + amount;
+        foodEaten = foodEaten + amount;
     }
 
     public void drink(Double amount)
@@ -45,7 +48,7 @@ public class Cat
 
     public Double getWeightOfEatenFood()
     {
-        return weight - originWeight;
+        return foodEaten;
     }
 
     public String getStatus()

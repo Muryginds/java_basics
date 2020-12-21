@@ -22,13 +22,13 @@ public class Loader
         while (cat3.getStatus() != "Dead") {
             cat3.meow();
         }
-        System.out.println(cat3.getStatus());
+        //System.out.println(cat3.getStatus());
 
         //Взрываем кота
         while (cat4.getStatus() != "Exploded") {
             cat4.feed(1.0);
         }
-        System.out.println(cat4.getStatus());
+        //System.out.println(cat4.getStatus());
 
 
         System.out.println("Начальный вес кота: " + cat2.getWeight());
@@ -38,6 +38,7 @@ public class Loader
         cat2.pee();
         cat2.feed(150.0);
         cat2.pee();
+        cat2.drink(50.0);
 
         double WeightOfEatenFood = cat2.getWeightOfEatenFood();
 
