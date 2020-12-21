@@ -22,16 +22,18 @@ public class Loader
         while (cat3.getStatus() != "Dead") {
             cat3.meow();
         }
+        Cat.count = Cat.count - 1;
         //System.out.println(cat3.getStatus());
 
         //Взрываем кота
         while (cat4.getStatus() != "Exploded") {
             cat4.feed(1.0);
         }
+        Cat.count = Cat.count - 1;
         //System.out.println(cat4.getStatus());
 
 
-        System.out.println("Начальный вес кота: " + cat2.getWeight());
+        /* System.out.println("Начальный вес кота: " + cat2.getWeight());
 
         cat2.pee();
         cat2.feed(100.0);
@@ -44,5 +46,16 @@ public class Loader
 
         System.out.println("Текущий вес кота: " + cat2.getWeight());
         System.out.println("Кот съел: "+ WeightOfEatenFood);
+
+         */
+
+        cat1.feed(10.0);
+        cat2.feed(10.0);
+        cat3.feed(10.0);
+        cat4.feed(10.0);
+        cat0.feed(10.0);
+
+        System.out.println("Количество живых котов:" + Cat.getCount());
+
     }
 }
