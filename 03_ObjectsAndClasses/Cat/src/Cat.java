@@ -1,6 +1,10 @@
 
 public class Cat
 {
+    public static final int EYES_AMMOUNT = 2;
+    public static final double MIN_WEIGHT = 1000.0;
+    public static final double MAX_WEIGHT = 9000.0;
+
     public static int count = 0;
     private double originWeight;
     private double weight;
@@ -19,8 +23,8 @@ public class Cat
     {
         weight = 1500.0 + 3000.0 * Math.random();
         originWeight = weight;
-        minWeight = 1000.0;
-        maxWeight = 9000.0;
+        minWeight = MIN_WEIGHT;
+        maxWeight = MAX_WEIGHT;
         foodEaten = 0;
         count = count + 1;
         isAlive = true;
