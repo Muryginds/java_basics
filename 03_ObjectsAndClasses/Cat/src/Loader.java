@@ -5,33 +5,38 @@ public class Loader
     {
         Cat cat0 = new Cat();
         System.out.println("Текущий вес кота0: " + cat0.getWeight());
+        cat0.feed(1.0);
+        System.out.println(cat0.getStatus());
 
         Cat cat1 = new Cat();
         System.out.println("Текущий вес кота1: " + cat1.getWeight());
+        cat1.feed(1.0);
+        System.out.println(cat1.getStatus());
 
         Cat cat2 = new Cat();
         System.out.println("Текущий вес кота2: " + cat2.getWeight());
+        cat2.feed(6000.0);
+        System.out.println(cat2.getStatus());
 
         Cat cat3 = new Cat();
         System.out.println("Текущий вес кота3: " + cat3.getWeight());
-
-        Cat cat4 = new Cat();
-        System.out.println("Текущий вес кота4: " + cat4.getWeight());
+        cat3.feed(1.0);
 
         //Мяукаем до истощения
         while (cat3.getStatus() != "Dead") {
             cat3.meow();
         }
-        Cat.count = Cat.count - 1;
-        //System.out.println(cat3.getStatus());
+        System.out.println(cat3.getStatus());
+
+        Cat cat4 = new Cat();
+        System.out.println("Текущий вес кота4: " + cat4.getWeight());
+        cat4.feed(1.0);
 
         //Взрываем кота
         while (cat4.getStatus() != "Exploded") {
             cat4.feed(1.0);
         }
-        Cat.count = Cat.count - 1;
-        //System.out.println(cat4.getStatus());
-
+        System.out.println(cat4.getStatus());
 
         /* System.out.println("Начальный вес кота: " + cat2.getWeight());
 
@@ -48,13 +53,6 @@ public class Loader
         System.out.println("Кот съел: "+ WeightOfEatenFood);
 
          */
-
-        cat1.feed(10.0);
-        cat2.feed(10.0);
-        cat3.feed(10.0);
-        cat4.feed(10.0);
-        cat0.feed(10.0);
-
         System.out.println("Количество живых котов:" + Cat.getCount());
 
     }

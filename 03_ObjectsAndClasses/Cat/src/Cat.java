@@ -9,6 +9,7 @@ public class Cat
     private double maxWeight;
 
     private double foodEaten;
+    private boolean isAlive;
 
     public static int getCount(){
         return count;
@@ -22,43 +23,58 @@ public class Cat
         maxWeight = 9000.0;
         foodEaten = 0;
         count = count + 1;
+        isAlive = true;
     }
 
     public void meow()
     {
-        weight = weight - 1;
-        //System.out.println("Meow");
+        if (isAlive){
+            weight = weight - 1;
+            //System.out.println("Meow");
+            if (!isWeightNormal()) {
+                System.out.println("Cat is dead");
+                count = count - 1;
+                isAlive = isWeightNormal();
+            }
+        }
+
     }
 
     public void pee()
     {
-        if (checkCatAlive()){
+        if (isAlive){
             weight = weight - 10;
             System.out.println("Cat peed..");
-        }
-        else{
-            System.out.println("Cat is dead");
+            if (!isWeightNormal()) {
+                System.out.println("Cat is dead");
+                count = count - 1;
+                isAlive = isWeightNormal();
+            }
         }
     }
 
     public void feed(Double amount)
     {
-        if (checkCatAlive()){
-        weight = weight + amount;
-        foodEaten = foodEaten + amount;
-        }
-        else{
-           System.out.println("Cat is dead");
+        if (isAlive){
+            weight = weight + amount;
+            foodEaten = foodEaten + amount;
+            if (!isWeightNormal()) {
+                System.out.println("Cat is dead");
+                count = count - 1;
+                isAlive = isWeightNormal();
+            }
         }
     }
 
     public void drink(Double amount)
     {
-        if (checkCatAlive()){
+        if (isAlive){
             weight = weight + amount;
-        }
-        else{
-            System.out.println("Cat is dead");
+            if (!isWeightNormal()) {
+                System.out.println("Cat is dead");
+                count = count - 1;
+                isAlive = isWeightNormal();
+            }
         }
     }
 
@@ -88,18 +104,7 @@ public class Cat
         }
     }
 
-    public boolean checkCatAlive() {
-        if(weight < minWeight) {
-            return false;
-        }
-        else if(weight > maxWeight) {
-            return false;
-        }
-        else if(weight > originWeight) {
-            return true;
-        }
-        else {
-            return true;
-        }
+    public boolean isWeightNormal() {
+        return (weight > minWeight && weight < maxWeight);
     }
 }
