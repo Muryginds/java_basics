@@ -81,14 +81,21 @@ public class Loader
         System.out.println(cat7.getColor());
 
 
-        System.out.println(Cat.getCount());
+        Cat cat8 = copyCat(cat7);
+        System.out.println(cat7.getWeight() +" "+ cat7.getColor());
+        System.out.println(cat8.getWeight() +" "+ cat8.getColor());
 
-
+        //System.out.println(Cat.getCount());
     }
 
     private static Cat getKitten(){
         Cat cat = new Cat(1100);
         return cat;
+    }
+
+    private static Cat copyCat(Cat cat){
+        Cat copy = new Cat(cat.getWeight(),cat.getColor());
+        return copy;
     }
 
 }

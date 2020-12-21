@@ -46,6 +46,14 @@ public class Cat
         originWeight = weight;
     }
 
+    public Cat(double weight, Color color)
+    {
+        this();
+        this.weight = weight;
+        originWeight = weight;
+        this.color = color;
+    }
+
     public void meow()
     {
         if (isAlive){
