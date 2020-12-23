@@ -14,7 +14,6 @@ public class Cat
     private double maxWeight;
 
     private double foodEaten;
-    public boolean isAlive;
 
     public static int getCount(){
         return count;
@@ -36,7 +35,6 @@ public class Cat
         maxWeight = MAX_WEIGHT;
         foodEaten = 0;
         count = count + 1;
-        isAlive = true;
     }
 
     public Cat(double weight)
@@ -56,13 +54,12 @@ public class Cat
 
     public void meow()
     {
-        if (isAlive){
+        if (isWeightNormal()){
             weight = weight - 1;
             //System.out.println("Meow");
             if (!isWeightNormal()) {
                 System.out.println("Cat is dead");
-                count = count - 1;
-                isAlive = isWeightNormal();
+                count--;
             }
         }
 
@@ -70,38 +67,35 @@ public class Cat
 
     public void pee()
     {
-        if (isAlive){
+        if (isWeightNormal()){
             weight = weight - 10;
             System.out.println("Cat peed..");
             if (!isWeightNormal()) {
                 System.out.println("Cat is dead");
-                count = count - 1;
-                isAlive = isWeightNormal();
+                count--;
             }
         }
     }
 
     public void feed(Double amount)
     {
-        if (isAlive){
+        if (isWeightNormal()){
             weight = weight + amount;
             foodEaten = foodEaten + amount;
             if (!isWeightNormal()) {
                 System.out.println("Cat is dead");
-                count = count - 1;
-                isAlive = isWeightNormal();
+                count--;
             }
         }
     }
 
     public void drink(Double amount)
     {
-        if (isAlive){
+        if (isWeightNormal()){
             weight = weight + amount;
             if (!isWeightNormal()) {
                 System.out.println("Cat is dead");
-                count = count - 1;
-                isAlive = isWeightNormal();
+                count--;
             }
         }
     }
