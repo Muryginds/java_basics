@@ -1,4 +1,3 @@
-
 public class Cat
 {
     public static final int EYES_AMMOUNT = 2;
