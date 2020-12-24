@@ -5,7 +5,7 @@ public class Main
     System.out.println("Диапазон значений для Short: " + Short.MIN_VALUE + " + " + Short.MAX_VALUE);
     System.out.println("Диапазон значений для Integer: " + Integer.MIN_VALUE + " + " + Integer.MAX_VALUE);
     System.out.println("Диапазон значений для Long: " + Long.MIN_VALUE + " + " + Long.MAX_VALUE);
-    System.out.println("Диапазон значений для Float: " + Float.MIN_VALUE + " + " + Float.MAX_VALUE);
-    System.out.println("Диапазон значений для Double: " + Double.MIN_VALUE + " + " + Double.MAX_VALUE);
+    System.out.println("Диапазон значений для Float: " + -Float.MAX_VALUE + " + " + Float.MAX_VALUE);
+    System.out.println("Диапазон значений для Double: " + -Double.MAX_VALUE + " + " + Double.MAX_VALUE);
   }
 }
