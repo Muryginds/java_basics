@@ -64,6 +64,8 @@ hs_err_pid*
 # *.iml
 # *.ipr
 
+04_NumbersStringsAndDates/homework_4.2/homework_4.2.iml
+
 # CMake
 cmake-build-*/
 
