@@ -13,21 +13,14 @@ public class Main {
 
     int result = 0;
 
-    if (number == null){
-      result =  -1;
-    }
-    else {
+    if (number == null) {
+      result = -1;
+    } else {
       String stringNumber = number.toString();
       for (int i = 0; i < stringNumber.length(); i++) {
-        result = result + getNumberWithChar(stringNumber.charAt(i));
+        result = result + Character.getNumericValue(stringNumber.charAt(i));
       }
     }
     return result;
-  }
-
-  private static int getNumberWithChar(char symbol) {
-    String str = String.valueOf(symbol);
-    int num = Integer.parseInt(str);
-    return num;
   }
 }
