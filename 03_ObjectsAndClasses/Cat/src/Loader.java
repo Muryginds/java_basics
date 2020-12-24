@@ -4,28 +4,28 @@ public class Loader
     {
         Cat cat0 = new Cat();
         cat0.setColor(Color.BLACK);
-        System.out.println("Текущий вес кота0: " + cat0.getWeight());
+        System.out.println("current weight of cat0: " + cat0.getWeight());
         System.out.println(cat0.getColor());
         cat0.feed(1.0);
         System.out.println(cat0.getStatus());
 
         Cat cat1 = new Cat();
         cat1.setColor(Color.WHITE);
-        System.out.println("Текущий вес кота1: " + cat1.getWeight());
+        System.out.println("current weight of cat1: " + cat1.getWeight());
         System.out.println(cat1.getColor());
         cat1.feed(1.0);
         System.out.println(cat1.getStatus());
 
         Cat cat2 = new Cat();
         cat2.setColor(Color.BROWN);
-        System.out.println("Текущий вес кота2: " + cat2.getWeight());
+        System.out.println("current weight of cat2: " + cat2.getWeight());
         System.out.println(cat2.getColor());
         cat2.feed(6000.0);
         System.out.println(cat2.getStatus());
 
         Cat cat3 = new Cat();
         cat3.setColor(Color.GREY);
-        System.out.println("Текущий вес кота3: " + cat3.getWeight());
+        System.out.println("current weight of cat3: " + cat3.getWeight());
         System.out.println(cat3.getColor());
         cat3.feed(1.0);
 
@@ -37,7 +37,7 @@ public class Loader
 
         Cat cat4 = new Cat();
         cat4.setColor(Color.ORANGE);
-        System.out.println("Текущий вес кота4: " + cat4.getWeight());
+        System.out.println("current weight of cat4: " + cat4.getWeight());
         System.out.println(cat4.getColor());
         cat4.feed(1.0);
 
@@ -62,7 +62,7 @@ public class Loader
         System.out.println("Кот съел: "+ WeightOfEatenFood);
 
          */
-        System.out.println("Количество живых котов:" + Cat.getCount());
+        System.out.println("Ammount of living cats:" + Cat.getCount());
 
         Cat cat5 = getKitten();
         System.out.println(cat5.getWeight());
