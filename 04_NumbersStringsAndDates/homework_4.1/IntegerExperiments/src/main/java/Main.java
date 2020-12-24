@@ -4,7 +4,7 @@ public class Main {
     Container container = new Container();
     container.count += 7843;
 
-    Integer sum = sumDigits(7843);
+    int sum = sumDigits(7843);
 
     System.out.println(sum);
   }
