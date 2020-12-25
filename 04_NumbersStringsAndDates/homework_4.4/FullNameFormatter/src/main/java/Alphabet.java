@@ -2,14 +2,16 @@ import java.lang.reflect.Array;
 
 public class Alphabet {
 
-  public static void main(String[] args) {
-    String englishAlphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    String russianAlphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-    System.out.println(englishAlphabet);
-    getCodeSymbolAndPrint(englishAlphabet);
+  private static final String ENGLISH_ALPHABET = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  private static final String RUSSIAN_ALPHABET = "абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
 
-    System.out.println(russianAlphabet);
-    getCodeSymbolAndPrint(russianAlphabet);
+  public static void main(String[] args) {
+
+    System.out.println(ENGLISH_ALPHABET);
+    getCodeSymbolAndPrint(ENGLISH_ALPHABET);
+
+    System.out.println(RUSSIAN_ALPHABET);
+    getCodeSymbolAndPrint(RUSSIAN_ALPHABET);
   }
 
   private static void getCodeSymbolAndPrint(String input) {
