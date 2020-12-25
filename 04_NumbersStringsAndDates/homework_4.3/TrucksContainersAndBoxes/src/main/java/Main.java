@@ -2,54 +2,43 @@ import java.util.Scanner;
 
 public class Main {
 
+    static final int BOX_IN_CONTAINER = 27;
+    static final int CONTAINER_IN_TRUCK = 12;
+    static final int BOX_IN_TRUCK = BOX_IN_CONTAINER * CONTAINER_IN_TRUCK;
+    static final String EXIT_CODE = "exit";
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Введите число ящиков: ");
+        System.out.println("Для выхода из программы введите слово: exit");
+        System.out.print("Введите число ящиков: ");
         String boxes = scanner.nextLine();
+
+        if (boxes.equals(EXIT_CODE)) {
+            return;
+        }
         calculateAndPrint(boxes);
     }
 
     private static void calculateAndPrint(String boxes) {
-        int cargoMaxCapacity = 12;
-        int containerMaxCapacity = 27;
+
         int boxesTotal = Integer.parseInt(boxes);
-        int cargoTotal = boxesTotal / (containerMaxCapacity * cargoMaxCapacity);
-        int boxesLeftout = boxesTotal % containerMaxCapacity;
-        int containersLeftout = boxesLeftout / cargoMaxCapacity;
+        int trucksCount = 0;
+        int containersCount = 0;
 
-        // выводим полностью заполненные грузовики
-        int i = 0;
-        if (boxesTotal > 0){
-            for (i = 1; cargoTotal >= i; i++) {
-                System.out.println("Грузовик: " + i);
-                for (int j = 1; cargoMaxCapacity >= j; j++) {
-                    System.out.println("\tКонтейнер: " + j);
-                    for (int l = 1; containerMaxCapacity  >= l; l++) {
-                        System.out.println("\t\tЯщик: " + l);
-                    }
-                }
+        for (int i = 0; i < boxesTotal;){
+            if (i % BOX_IN_TRUCK == 0) {
+                System.out.println("Грузовик: " + ++trucksCount);
             }
-        }
-
-        // выводим остатки ящиков
-        if (boxesLeftout > 0) {
-            System.out.println("Грузовик: " + i);
-            for (int j = 1; containersLeftout + 1 >= j; j++) {
-                System.out.println("\tКонтейнер: " + j);
-                for (int l = 1; boxesLeftout >= l; l++) {
-                    System.out.println("\t\tЯщик: " + l);
-                }
+            if (i % BOX_IN_CONTAINER == 0) {
+                System.out.println("\tКонтейнер: " + ++containersCount);
             }
+            System.out.println("\t\tЯщик: " + ++i);
         }
 
-       int containerCount = 0;
-        if (boxesTotal != 0) {
-            containerCount = Math.addExact(boxesTotal / containerMaxCapacity, 1);
-        }
 
         System.out.println("Необходимо: ");
-        System.out.println("грузовиков - " + i + " шт.");
-        System.out.println("контейнеров - " +  containerCount + " шт.");
+        System.out.println("грузовиков - " + trucksCount + " шт.");
+        System.out.println("контейнеров - " +  containersCount + " шт.");
     }
 
 }
