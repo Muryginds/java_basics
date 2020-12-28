@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-  private static final Pattern PATTERN_FOR_NORMALIZATION = Pattern.compile("\\s*(\\s|\\W| )\\s*");
+  private static final Pattern PATTERN_FOR_NORMALIZATION = Pattern.compile("\\s*(\\s|\\W)\\s*");
   private static final Pattern PATTERN_TO_CHECK_NUMBER = Pattern.compile("[7,8]{1}[0-9]{7,10}");
 
   public static void main(String[] args) {
@@ -17,15 +17,12 @@ public class Main {
       }
       checkStringIsValid(input);
     }
-
-    //checkStringIsValid("+7 909 123-45-67");
   }
 
   private static void checkStringIsValid(String input) {
     Matcher matcherForNormalization = PATTERN_FOR_NORMALIZATION.matcher(input);
     String firstResult = matcherForNormalization.replaceAll("");
 
-    //System.out.println(firstResult);
     int firstSymbol = firstResult.indexOf("8");
 
     if ((firstResult.length() == 10)) {
