@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-  private static final Pattern PATTERN_TO_CHECK_INPUT = Pattern.compile("(^[а-яА-Я-]{1,} [а-яА-Я-]{1,} [а-яА-Я-]{1,})$");
+  private static final Pattern PATTERN_TO_CHECK_INPUT = Pattern.compile("(^[а-яА-Я-]{1,} [а-яА-Я-]{1,} [а-яА-Я-]{1,})(\\s+[а-я]+)?$");
   private static final Pattern PATTERN_TO_CORRECT_OUTPUT = Pattern.compile("\\s*(\\s)\\s*");
 
   public static void main(String[] args) {
@@ -25,7 +25,12 @@ public class Main {
       String[] names = PATTERN_TO_CORRECT_OUTPUT.split(matcherCheckInput.group(0));
       System.out.println("Фамилия: " + names[0]);
       System.out.println("Имя: " + names[1]);
-      System.out.println("Отчество: " + names[2]);
+      if (names.length == 4) {
+        System.out.println("Отчество: " + names[2] + " " +names[3]);
+      } else {
+        System.out.println("Отчество: " + names[2]);
+      }
+
     } else {
       System.out.println("Введенная строка не является ФИО");
     }
