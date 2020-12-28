@@ -3,11 +3,12 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-  private static final Pattern PATTERN = Pattern.compile("\\d+");
+  private static final String INCOME_TEXT = "Вася заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей";
+  private static final String REGEX_TO_FIND_DIGIT = "\\d+";
+  private static final Pattern PATTERN = Pattern.compile(REGEX_TO_FIND_DIGIT);
 
   public static void main(String[] args) {
-    String text = "Вася заработал 5000 рублей, Петя - 7563 рубля, а Маша - 30000 рублей";
-    System.out.println(calculateSalarySum(text));
+    System.out.println(calculateSalarySum(INCOME_TEXT));
   }
 
   public static int calculateSalarySum(String text){
