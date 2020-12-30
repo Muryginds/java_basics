@@ -4,8 +4,8 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-  private static final Pattern PATTERN_FOR_NORMALIZATION = Pattern.compile("\\s*(\\s|\\W)\\s*");
-  private static final Pattern PATTERN_TO_CHECK_NUMBER = Pattern.compile("[7,8]{1}[0-9]{7,10}");
+  private static final Pattern PATTERN = Pattern.compile("\\+?[7,8]{1}(\\D)*(\\d{3})(\\D)*(\\d{3})(\\D)*(\\d{2})(\\D)*(\\d{2})\\b");
+  private static final Pattern PATTERN_SEVEN_NUMBERS = Pattern.compile("^(\\d{3})(\\D)*(\\d{3})(\\D)*(\\d{2})(\\D)*(\\d{2})\\b");
 
   public static void main(String[] args) {
 
@@ -20,21 +20,14 @@ public class Main {
   }
 
   private static void checkStringIsValid(String input) {
-    Matcher matcherForNormalization = PATTERN_FOR_NORMALIZATION.matcher(input);
-    String firstResult = matcherForNormalization.replaceAll("");
 
-    int firstSymbol = firstResult.indexOf("8");
+    Matcher matcher = PATTERN.matcher(input);
+    Matcher matcherSevenNumbers = PATTERN_SEVEN_NUMBERS.matcher(input);
 
-    if ((firstResult.length() == 10)) {
-      firstResult = "7".concat(firstResult);
-    } else if ((firstResult.length() == 11 && firstSymbol == 0)) {
-      firstResult = "7".concat(firstResult.substring(1,firstResult.length()));
-    }
-
-    Matcher matcherCheckNumber = PATTERN_TO_CHECK_NUMBER.matcher(firstResult);
-
-    if (matcherCheckNumber.matches()) {
-      System.out.println(matcherCheckNumber.group());
+    if (matcher.matches()) {
+      System.out.println(matcher.replaceAll("7$2$4$6$8"));
+    } else if (matcherSevenNumbers.matches()){
+      System.out.println(matcherSevenNumbers.replaceAll("7$1$3$5$7"));
     } else {
       System.out.println("Неверный формат номера");
     }
