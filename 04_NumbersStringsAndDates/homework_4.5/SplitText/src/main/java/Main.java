@@ -3,8 +3,8 @@ import java.util.regex.Pattern;
 
 public class Main {
 
-  private static final String REGEX_TO_CLEAR_DIGITS_AND_QUOTES = "\\s*(\"|[0-9])\\s*";
-  private static final String REGEX_TO_SPLIT_WORDS = "\\s*(\\s|,|!|\\.|-|;|\")\\s*";
+  private static final String REGEX_TO_CLEAR_DIGITS_AND_QUOTES = "\\s*(\"|[0-9]|\\p{Punct})\\s*";
+  private static final String REGEX_TO_SPLIT_WORDS = "\\s*(\\s)\\s*";
   private static final Pattern PATTERN_ONE = Pattern.compile(REGEX_TO_CLEAR_DIGITS_AND_QUOTES);
   private static final Pattern PATTERN_TWO = Pattern.compile(REGEX_TO_SPLIT_WORDS);
   private static final String INPUT_TEXT = "The fate of the spending package remains in the balance while Mr Trump refuses to sign it.\n"
