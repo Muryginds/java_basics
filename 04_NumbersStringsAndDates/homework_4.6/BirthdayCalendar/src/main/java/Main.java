@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class Main {
 
-    private static final DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy - EEE", new Locale("us"));
+    private static final DateTimeFormatter PRINT_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy - EEE", new Locale("us"));
     private static final StringBuilder STRING_RESULT = new StringBuilder();
     private static final int BIRTHDATE_DAY = 24;
     private static final int BIRTHDATE_MONTH = 8;
@@ -22,7 +22,7 @@ public class Main {
         LocalDate birthdate = LocalDate.of(year, month, day);
         int i = 0;
         while (!TODAY.isBefore(birthdate)) {
-          STRING_RESULT.append(i + " - " + birthdate.format(printFormat) + System.lineSeparator());
+          STRING_RESULT.append(i + " - " + birthdate.format(PRINT_FORMAT) + System.lineSeparator());
           birthdate = birthdate.plusYears(1);
           i++;
           }
