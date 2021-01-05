@@ -1,46 +1,31 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import javax.print.DocFlavor.STRING;
 
 public class Main {
 
-    private static final Calendar CALENDAR_DATE = Calendar.getInstance();
-    private static final Calendar CURRENT_DATE = Calendar.getInstance();
-    private static final long CURRENT_TIME_IN_MILLIS = CURRENT_DATE.getTime().getTime();
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy - EEE", Locale.US);
+    private static final DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy - EEE", new Locale("us"));
     private static final StringBuilder STRING_RESULT = new StringBuilder();
+    private static final int BIRTHDATE_DAY = 24;
+    private static final int BIRTHDATE_MONTH = 8;
+    private static final int BIRTHDATE_YEAR = 1988;
+    private static final LocalDate TODAY = LocalDate.now();
 
     public static void main(String[] args) {
 
-        int day = 24;
-        int month = 8;
-        int year = 1988;
-
-        System.out.println(collectBirthdays(year, month, day));
-
+        System.out.println(collectBirthdays(BIRTHDATE_YEAR, BIRTHDATE_MONTH, BIRTHDATE_DAY));
     }
 
     public static String collectBirthdays(int year, int month, int day) {
 
         STRING_RESULT.setLength(0);
-        CALENDAR_DATE.set(year, month-1, day);
-        long timestamp = CALENDAR_DATE.getTime().getTime();
-        if (CURRENT_TIME_IN_MILLIS >= timestamp) {
-            int days = (int) ((CURRENT_TIME_IN_MILLIS - timestamp) / (24 * 60 * 60 * 1000));
-            int years = days/365;
-            int i = 0;
-            do {
-                STRING_RESULT.append(i + " - " + DATE_FORMAT.format(CALENDAR_DATE.getTime()) + System.lineSeparator());
-                CALENDAR_DATE.add(Calendar.YEAR, 1);
-                if (CALENDAR_DATE.compareTo(CURRENT_DATE) > 0){
-                    break;
-                }
-                i++;
-            } while (i <= years);
-        }
+        LocalDate birthdate = LocalDate.of(year, month, day);
+        int i = 0;
+        while (!TODAY.isBefore(birthdate)) {
+          STRING_RESULT.append(i + " - " + birthdate.format(printFormat) + System.lineSeparator());
+          birthdate = birthdate.plusYears(1);
+          i++;
+          }
         return STRING_RESULT.toString();
     }
 }
