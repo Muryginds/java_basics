@@ -9,8 +9,8 @@ public class Main {
     public static void main(String[] args) {
 
         float[] temperatureData = Hospital.generatePatientsTemperatures(15);
-        //System.out.println(Hospital.getReport(temperatureData));
-        System.out.println(Hospital.getReport(testHospitalData));
+        //System.out.println(Hospital.getReport(testHospitalData));
+        System.out.println(Hospital.getReport(temperatureData));
 
         //Пример вывода в консоль:
         //Температуры пациентов: 36.7 38.9 34.7

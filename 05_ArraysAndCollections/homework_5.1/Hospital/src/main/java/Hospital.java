@@ -1,15 +1,17 @@
-import java.text.DecimalFormat;
+import java.util.Arrays;
 
 public class Hospital {
 
-    public static  final DecimalFormat FORMATTER = new DecimalFormat("#0.0");
+    public static final float MAX_TEMPERATURE = 40F;
+    public static final float MAX_TEMPERATURE_OF_HEALTHY_PATIENT = 36.9F;
+    public static final float MIN_TEMPERATURE_OF_HEALTHY_PATIENT = 36.2F;
 
     public static float[] generatePatientsTemperatures(int patientsCount) {
 
         float[] patients = new float[patientsCount];
 
         for (int i = 0; i < patientsCount; i++) {
-            patients[i] = (float) (40 - 8 * Math.random());
+            patients[i] = (float) (MAX_TEMPERATURE - 8 * Math.random());
         }
 
         return patients;
@@ -21,12 +23,19 @@ public class Hospital {
         int healthyPatientsCount = 0;
         float patientsTemperatureSummary = 0;
         stringResult.append("Температуры пациентов:");
+
+        String[] arrayFormattedToString = Arrays.toString(temperatureData).split(",\\s|\\]|\\[");
+        Arrays.stream(arrayFormattedToString).forEach(elem->{
+            if (elem != "") {
+                stringResult.append(" " + elem.substring(0,4));
+            }
+        });
+
         for (float patientTemperature : temperatureData) {
-            stringResult.append(" " + FORMATTER.format(patientTemperature));
             patientsTemperatureSummary += patientTemperature;
 
-            if (patientTemperature >= 36.2F && patientTemperature <= 36.9F) {
-                System.out.println(patientTemperature);
+            if (patientTemperature >= MIN_TEMPERATURE_OF_HEALTHY_PATIENT &&
+                patientTemperature <= MAX_TEMPERATURE_OF_HEALTHY_PATIENT) {
                 healthyPatientsCount++;
             }
         }
