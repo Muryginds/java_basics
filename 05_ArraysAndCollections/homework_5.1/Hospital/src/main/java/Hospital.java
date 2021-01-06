@@ -1,23 +1,41 @@
+import java.text.DecimalFormat;
+
 public class Hospital {
+
+    public static  final DecimalFormat FORMATTER = new DecimalFormat("#0.0");
 
     public static float[] generatePatientsTemperatures(int patientsCount) {
 
-        //TODO: напишите метод генерации массива температур пациентов
+        float[] patients = new float[patientsCount];
 
-        return new float[0];
+        for (int i = 0; i < patientsCount; i++) {
+            patients[i] = (float) (40 - 8 * Math.random());
+        }
+
+        return patients;
     }
 
     public static String getReport(float[] temperatureData) {
-        /*
-        TODO: Напишите код, который выводит среднюю температуру по больнице,количество здоровых пациентов,
-            а также температуры всех пациентов.
-        */
 
-        String report =
-                "Температуры пациентов: " + 0 +
-                        "\nСредняя температура: " + 0 +
-                        "\nКоличество здоровых: " + 0;
+        StringBuilder stringResult = new StringBuilder();
+        int healthyPatientsCount = 0;
+        float patientsTemperatureSummary = 0;
+        stringResult.append("Температуры пациентов:");
+        for (float patientTemperature : temperatureData) {
+            stringResult.append(" " + FORMATTER.format(patientTemperature));
+            patientsTemperatureSummary += patientTemperature;
 
-        return report;
+            if (patientTemperature >= 36.2F && patientTemperature <= 36.9F) {
+                System.out.println(patientTemperature);
+                healthyPatientsCount++;
+            }
+        }
+
+        stringResult.append(
+            "\nСредняя температура: "
+                + Math.round(patientsTemperatureSummary / temperatureData.length * 10F) / 10F +
+                "\nКоличество здоровых: " + healthyPatientsCount);
+
+        return stringResult.toString();
     }
 }
