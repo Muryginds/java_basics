@@ -2,28 +2,42 @@ import java.util.ArrayList;
 
 public class TodoList {
 
+    public ArrayList<String> ARRAY_LIST = new ArrayList<>();
+
     public void add(String todo) {
-        // TODO: добавьте переданное дело в конец списка
+        ARRAY_LIST.add(todo);
+        System.out.println("Добавлено дело \"" + todo +"\"");
     }
 
     public void add(int index, String todo) {
-        // TODO: добавьте дело на указаный индекс,
-        //  проверьте возможность добавления
+        if (checkIndexIsValid(index)){
+            ARRAY_LIST.add(index, todo);
+        } else {
+            ARRAY_LIST.add(todo);
+        }
     }
 
     public void edit(String todo, int index) {
-        // TODO: заменить дело на index переданным todo индекс,
-        //  проверьте возможность изменения
+        if (checkIndexIsValid(index)){
+            String temp = ARRAY_LIST.get(index);
+            ARRAY_LIST.set(index, todo);
+            System.out.println("Дело \"" + temp + "\" заменено на \"" + todo + "\"");
+        }
     }
 
     public void delete(int index) {
-        // TODO: удалить дело находящееся по переданному индексу,
-        //  проверьте возможность удаления дела
+        if (checkIndexIsValid(index)){
+            ARRAY_LIST.remove(index);
+        } else {
+            System.out.println("Дело с таким номером не существует");
+        }
     }
 
     public ArrayList<String> getTodos() {
-        // TODO: вернуть список дел
-        return new ArrayList<>();
+        return ARRAY_LIST;
     }
 
+    private boolean checkIndexIsValid(int index) {
+        return index >= 0 && index < ARRAY_LIST.size();
+    }
 }
