@@ -12,7 +12,7 @@ public class Main {
             String userInput = UserInput.getLine();
             String email = userInput.replaceFirst(COMMAND_ADD, "").trim();
             if (userInput.startsWith(COMMAND_ADD)) {
-                if (emailList.checkEmailFormat(email)){
+                if (emailList.checkEmailFormat(email)){         //заглушка для автотестов
                     emailList.add(email);
                 } else {
                     System.out.println(WRONG_EMAIL_ANSWER);

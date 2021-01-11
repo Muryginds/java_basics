@@ -14,8 +14,7 @@ public class EmailList {
     private List<String> list = new ArrayList<>();
 
     public void add(String email) {
-        Matcher matcher = EMAIL_PATTERN.matcher(email);
-        if (matcher.matches()) {
+        if (checkEmailFormat(email)) {
             treeSet.add(email.toLowerCase(Locale.ROOT));
         }
     }
