@@ -20,7 +20,7 @@ public class Main {
         String textAfterCommand;
         int search;
         int index;
-        if (input == "LIST"){
+        if (input.equals("LIST")){
             todoList.getTodos();
         } else if (input.contains("ADD")) {
             textAfterCommand = input.substring(4);
