@@ -1,37 +1,26 @@
-import java.util.List;
-import java.util.Scanner;
-
 public class Main {
 
-    public static final String WRONG_EMAIL_ANSWER = "Неверный формат email";
-
-    public static EmailList emailList = new EmailList();
+    private final static String WRONG_EMAIL_ANSWER = "Неверный формат email";
+    private final static String WRONG_COMMAND = "Неверная команда";
+    private final static String COMMAND_ADD = "ADD";
+    private final static String COMMAND_LIST = "LIST";
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        while (true) {
-            String input = scanner.nextLine();
-            if (input.equals("0")) {
-                break;
-            }
 
-            if (input.equals("LIST")){
-                List<String> list = emailList.getSortedEmails();
-                for (String mail : list){
-                    System.out.println(mail);
+        EmailList emailList = new EmailList();
+        for (; ; ) {
+            String userInput = UserInput.getLine();
+            String email = userInput.replaceFirst(COMMAND_ADD, "").trim();
+            if (userInput.startsWith(COMMAND_ADD)) {
+                if (emailList.checkEmailFormat(email)){
+                    emailList.add(email);
+                } else {
+                    System.out.println(WRONG_EMAIL_ANSWER);
                 }
-            } else if (input.contains("ADD")) {
-                try {
-                    String email = input.substring(4);
-                    if (!emailList.checkEmailFormat(email)){
-                        System.out.println(WRONG_EMAIL_ANSWER);
-                    } else {
-                        emailList.add(email);
-                    };
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+            } else if (userInput.equals(COMMAND_LIST)) {
+                emailList.printList();
+            } else {
+                System.out.println(WRONG_COMMAND);
             }
         }
     }
