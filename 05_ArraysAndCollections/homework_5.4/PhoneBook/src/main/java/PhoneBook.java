@@ -4,12 +4,16 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class PhoneBook {
+
+    public static final String NAME_CHECK_REGEX = "[A-zА-я|\\s]+";
+    public static final String PHONE_CHECK_REGEX = "[7][\\d]{10}";
+
     private TreeMap<String, String> treeMap = new TreeMap();
     private Set<String> listOfContacts = new TreeSet<>();
     private Set<Map.Entry<String, String>> entries;
 
     public void addContact(String phone, String name) {
-        if (UserInput.isName(name) && UserInput.isPhoneNumber(phone)){
+        if (name.matches(NAME_CHECK_REGEX) && phone.matches(PHONE_CHECK_REGEX)){
             treeMap.put(phone, name);
         }
     }

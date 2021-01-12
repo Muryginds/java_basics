@@ -2,64 +2,78 @@ import java.util.Set;
 
 public class Main {
 
-    private final static String WRONG_ANSWER = "Неверный формат ввода";
-    private final static String COMMAND_LIST = "LIST";
-    private static boolean isName;
-    private static boolean isPhoneNumber;
-
     public static void main(String[] args) {
 
+        Set<String> result;
         PhoneBook phoneBook = new PhoneBook();
         for (; ; ) {
             System.out.println("Введите номер, имя или команду:");
             String userInput = UserInput.getLine();
-            isName = UserInput.isName(userInput);
-            isPhoneNumber = UserInput.isPhoneNumber(userInput);
-            if (userInput.equals(COMMAND_LIST)) {
-                printListOfContacts(phoneBook.getAllContacts());
-            } else if (isName) {
-                Set<String> result = phoneBook.getPhonesByName(userInput);
-                if (result.isEmpty()){
-                    addNewContact(userInput, phoneBook);
-                } else {
-                    printListOfContacts(result);
-                }
+            ActionType action = UserInput.getAction(userInput);
 
-            } else if (isPhoneNumber) {
-                String result = phoneBook.getNameByPhone(userInput);
-                if (result.isEmpty()){
-                    addNewContact(userInput, phoneBook);
-                } else {
-                    System.out.println(phoneBook.getNameByPhone(userInput));
-                }
-            } else {
-                System.out.println(WRONG_ANSWER);
+            switch (action) {
+                case PRINT_ALL:
+                    printListOfContacts(phoneBook.getAllContacts());
+                    break;
+                case SEARCH_BY_NAME:
+                    result = phoneBook.getPhonesByName(userInput);
+                    if (result.isEmpty()){
+                        addNewContact(userInput, phoneBook, ActionType.SEARCH_BY_NAME);
+                    } else {
+                        printListOfContacts(result);
+                    }
+                    break;
+                case SEARCH_BY_PHONE_NUMBER:
+                    result = phoneBook.getPhonesByName(userInput);
+                    if (result.isEmpty()){
+                        addNewContact(userInput, phoneBook, ActionType.SEARCH_BY_PHONE_NUMBER);
+                    } else {
+                        printListOfContacts(result);
+                    }
+                    break;
+                default:
+                    System.out.println(UserInput.WRONG_ANSWER);
+                    break;
             }
         }
     }
 
-    private static void addNewContact(String input, PhoneBook phoneBook) {
-        String message = "";
-        if (isName){
-            message = "Такого имени нет в телефонной книге.\n"
-                + "Введите номер телефона для абонента \"";
-        } else {
-            message = "Такого номера нет в телефонной книге.\n"
-                + "Введите имя абонента для номера \"";
+    private static void addNewContact(String input, PhoneBook phoneBook, ActionType action) {
+        StringBuilder message = new StringBuilder();
+        message.append("Такого ");
+        switch (action){
+            case SEARCH_BY_NAME:
+                message.append("имени ");
+                break;
+            case SEARCH_BY_PHONE_NUMBER:
+                message.append("номера ");
+                break;
         }
-        System.out.println(message + input + "\":");
+        message.append("нет в телефонной книге.\nВведите ");
+        switch (action){
+            case SEARCH_BY_NAME:
+                message.append("номер телефона для абонента ");
+                break;
+            case SEARCH_BY_PHONE_NUMBER:
+                message.append("имя абонента для номера ");
+                break;
+        }
+        message.append("\"" + input + "\":");
 
-        boolean inputNotComplite = true;
-        while (inputNotComplite){
+        System.out.println(message);
+
+        boolean inputComplite = false;
+        while (!inputComplite){
+
             String newInput = UserInput.getLine();
-            inputNotComplite = !UserInput.isName(newInput) && !UserInput.isPhoneNumber(newInput);
+            inputComplite = newInput.matches(PhoneBook.NAME_CHECK_REGEX) || newInput.matches(PhoneBook.PHONE_CHECK_REGEX);
 
-            if (isName & !inputNotComplite){
+            if (action == ActionType.SEARCH_BY_NAME & inputComplite){
                 phoneBook.addContact(newInput, input);
-            } else if (isPhoneNumber & !inputNotComplite){
+            } else if (action == ActionType.SEARCH_BY_PHONE_NUMBER & inputComplite){
                 phoneBook.addContact(input, newInput);
             } else {
-                System.out.println(WRONG_ANSWER + ". Попробуйте ещё раз:");
+                System.out.println(UserInput.WRONG_ANSWER + ". Попробуйте ещё раз:");
             }
         }
 

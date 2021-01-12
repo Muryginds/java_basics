@@ -1,25 +1,26 @@
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserInput {
 
-  public static final Pattern NAME_PATTERN = Pattern.compile("[A-zА-я|\\s]+");
-  public static final Pattern PHONE_PATTERN = Pattern.compile("[7][\\d]{10}");
-
-  public static Scanner scanner = new Scanner(System.in);
+  public final static String WRONG_ANSWER = "Неверный формат ввода";
+  private final static String COMMAND_LIST = "LIST";
+  private static Scanner scanner = new Scanner(System.in);
 
   public static String getLine() {
-    return scanner.nextLine();
+   return scanner.nextLine();
   }
 
-  public static boolean isName(String name) {
-    Matcher matcherName = NAME_PATTERN.matcher(name);
-    return matcherName.matches();
-  }
-
-  public static boolean isPhoneNumber(String number) {
-    Matcher matcherPhone = PHONE_PATTERN.matcher(number);
-    return matcherPhone.matches();
+  public static ActionType getAction(String input) {
+    ActionType action;
+    if (input.equals(COMMAND_LIST)){
+      action = ActionType.PRINT_ALL;
+    } else if (input.matches(PhoneBook.NAME_CHECK_REGEX)) {
+      action = ActionType.SEARCH_BY_NAME;
+    } else if (input.matches(PhoneBook.PHONE_CHECK_REGEX)) {
+      action = ActionType.SEARCH_BY_PHONE_NUMBER;
+    } else {
+      action = null;
+    }
+    return action;
   }
 }
