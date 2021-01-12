@@ -13,10 +13,11 @@ public class Main {
         result.setLength(0);
         boolean search = false;
         String searchName = "";
+        Collections.sort(generatedNumbers);
+        HashSet hashSet = new HashSet<String>(generatedNumbers);
+        TreeSet treeSet = new TreeSet<String>(generatedNumbers);
+
         for (int i = 0; i < 4; i++) {
-            Collections.sort(generatedNumbers);
-            HashSet hashSet = new HashSet<String>(generatedNumbers);
-            TreeSet treeSet = new TreeSet<String>(generatedNumbers);
             long start = System.nanoTime();
             switch (i){
                 case 0:
