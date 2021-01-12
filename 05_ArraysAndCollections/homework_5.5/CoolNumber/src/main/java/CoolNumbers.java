@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 public class CoolNumbers {
 
-    public static final StringBuilder STRING_RESULT = new StringBuilder();
+    public static StringBuilder stringBuilder = new StringBuilder();
     public static final String ALLOWED_LETTERS = "АВЕКМНОРСТУХ";
     public static final int REGION_MAX = 199;
     public static final int CARS_AMOUNT = 2000000;
@@ -23,17 +23,25 @@ public class CoolNumbers {
     }
 
     private static String generateNumber() {
-        STRING_RESULT.setLength(0);
+        stringBuilder.setLength(0);
         for (int i = 0; i < 7; i++){
-            if (i >= 1 && i < 4) {
-                STRING_RESULT.append(generateDigit());
-            } else if (i >= 4 && i < 6 || i == 0){
-                STRING_RESULT.append(generateLetter());
-            } else {
-                STRING_RESULT.append(generateRegion());
+            switch (i){
+                case 1:
+                case 2:
+                case 3:
+                    stringBuilder.append(generateDigit());
+                    break;
+                case 0:
+                case 4:
+                case 5:
+                    stringBuilder.append(generateLetter());
+                    break;
+                case 6:
+                    stringBuilder.append(generateRegion());
+                    break;
             }
         }
-        return STRING_RESULT.toString();
+        return stringBuilder.toString();
     }
 
     private static String generateRegion() {
