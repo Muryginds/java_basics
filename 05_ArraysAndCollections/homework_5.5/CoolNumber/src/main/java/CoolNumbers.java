@@ -65,6 +65,7 @@ public class CoolNumbers {
         for(String element : list){
            if (element.equals(number)){
                searchIsSuccessful = true;
+               break;
            }
         }
         return searchIsSuccessful;
