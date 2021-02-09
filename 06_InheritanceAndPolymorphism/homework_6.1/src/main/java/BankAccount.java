@@ -6,6 +6,10 @@ public class BankAccount {
     return moneyAmount;
   }
 
+  public void setAmount(double moneyAmount) {
+    this.moneyAmount = moneyAmount;
+  }
+
   public void put(double amountToPut) {
     if (amountToPut > 0) {
       moneyAmount += amountToPut;

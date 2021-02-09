@@ -8,6 +8,7 @@ public class CardAccount extends BankAccount {
     double moneyAmount = getAmount();
     if (moneyAmount >= totalWithdraw && amountToTake > 0) {
       moneyAmount -= totalWithdraw;
+      setAmount(moneyAmount);
     }
   }
 }

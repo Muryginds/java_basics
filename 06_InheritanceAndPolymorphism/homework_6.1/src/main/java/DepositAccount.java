@@ -9,6 +9,7 @@ public class DepositAccount extends BankAccount {
     double moneyAmount = getAmount();
     if (moneyAmount >= amountToTake && amountToTake > 0 && !lastIncome.isAfter(LocalDate.now().minusMonths(1L))) {
       moneyAmount -= amountToTake;
+      setAmount(moneyAmount);
       lastIncome = LocalDate.now();
     }
   }
