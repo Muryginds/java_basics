@@ -1,6 +1,6 @@
 public class BankAccount {
 
-  public double moneyAmount = 0D;
+  private double moneyAmount = 0D;
 
   public double getAmount() {
     return moneyAmount;
