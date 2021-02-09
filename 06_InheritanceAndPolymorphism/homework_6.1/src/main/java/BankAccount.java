@@ -1,13 +1,9 @@
 public class BankAccount {
 
-  private double moneyAmount = 0D;
+  private double moneyAmount;
 
   public double getAmount() {
     return moneyAmount;
-  }
-
-  public void setAmount(double moneyAmount) {
-    this.moneyAmount = moneyAmount;
   }
 
   public void put(double amountToPut) {
@@ -24,13 +20,11 @@ public class BankAccount {
 
   private boolean send(BankAccount receiver, double amount) {
     boolean transferSuccess = false;
-    if(amount > 0 && amount > moneyAmount){
+    if(amount > 0 && amount < moneyAmount){
       receiver.put(amount);
-      moneyAmount -= amount;
+      this.take(amount);
       transferSuccess = true;
     }
     return transferSuccess;
   }
 }
-
-
