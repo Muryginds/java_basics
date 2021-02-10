@@ -9,7 +9,8 @@ public class IndividualBusinessman extends Client {
     double moneyAmount = getAmount();
     double amountToTakeWithCommission = amountToTake * (1 + COMMISSION_FOR_WITHDRAWING);
     if (amountToTakeWithCommission <= moneyAmount) {
-      super.take(amountToTakeWithCommission);
+      moneyAmount -= amountToTakeWithCommission;
+      setMoneyAmount(moneyAmount);
     }
   }
 
@@ -17,9 +18,11 @@ public class IndividualBusinessman extends Client {
   public void put(double amountToPut) {
     double moneyAmount = getAmount();
     if (amountToPut >= 1000) {
-      super.put(amountToPut * (1 - COMMISSION_FOR_DEPOSITING_LOWERED));
+      moneyAmount += amountToPut * (1 - COMMISSION_FOR_DEPOSITING_LOWERED);
+      setMoneyAmount(moneyAmount);
     } else if (amountToPut > 0) {
-      super.put(amountToPut * (1 - COMMISSION_FOR_DEPOSITING_STANDARD));
+      moneyAmount += amountToPut * (1 - COMMISSION_FOR_DEPOSITING_STANDARD);
+      setMoneyAmount(moneyAmount);
     }
   }
 }

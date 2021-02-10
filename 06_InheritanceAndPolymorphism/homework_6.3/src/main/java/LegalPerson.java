@@ -7,7 +7,17 @@ public class LegalPerson extends Client {
     double moneyAmount = getAmount();
     double amountToTakeWithCommission = amountToTake * (1 + COMMISSION_FOR_WITHDRAWING);
     if (amountToTakeWithCommission <= moneyAmount) {
-      super.take(amountToTakeWithCommission);
+      moneyAmount -=  amountToTakeWithCommission;
+      setMoneyAmount(moneyAmount);
+    }
+  }
+
+  @Override
+  public void put(double amountToPut) {
+    double moneyAmount = getAmount();
+    if (amountToPut > 0) {
+      moneyAmount += amountToPut;
+      setMoneyAmount(moneyAmount);
     }
   }
 }

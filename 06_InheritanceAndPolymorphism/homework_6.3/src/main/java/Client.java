@@ -2,19 +2,15 @@ public abstract class Client {
 
     private double moneyAmount;
 
-    public double getAmount() {
+    protected double getAmount() {
         return moneyAmount;
     }
 
-    public void put(double amountToPut) {
-        if (amountToPut > 0) {
-            moneyAmount += amountToPut;
-        }
+    protected void setMoneyAmount(double moneyAmount) {
+        this.moneyAmount = moneyAmount;
     }
 
-    public void take(double amountToTake) {
-        if (amountToTake <= moneyAmount) {
-            moneyAmount -= amountToTake;
-        }
-    }
+    abstract void put(double amountToPut);
+
+    abstract void take(double amountToTake);
 }
