@@ -3,7 +3,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Company {
-  private ArrayList<Employee> employeeList = new ArrayList<>();
+  private List<Employee> employeeList = new ArrayList<>();
   private long income;
 
   public Company(long income){
