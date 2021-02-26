@@ -30,6 +30,8 @@ public class Main {
                 } else {
                     System.out.println(COMMAND_ERROR);
                 }
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                System.out.println(COMMAND_ERROR);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }

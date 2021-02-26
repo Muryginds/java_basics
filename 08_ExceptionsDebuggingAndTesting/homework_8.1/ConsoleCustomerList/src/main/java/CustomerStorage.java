@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 
 public class CustomerStorage {
     private final Map<String, Customer> storage;
-    private static final Pattern MAIL_PATTERN = Pattern.compile("\\S+\\@\\S+\\.\\S+");
-    private static final Pattern PHONE_PATTERN = Pattern.compile("\\+[7,8]{1}\\d{10}");
+    private static final Pattern MAIL_PATTERN = Pattern.compile("\\S+@\\S+\\.\\S+");
+    private static final Pattern PHONE_PATTERN = Pattern.compile("\\+7\\d{10}");
 
     public CustomerStorage() {
         storage = new HashMap<>();
@@ -19,10 +19,6 @@ public class CustomerStorage {
         final int INDEX_PHONE = 3;
 
         String[] components = data.split("\\s+");
-        if (components.length != 4) {
-            throw new IllegalArgumentException("Wrong input format. Correct input example: \n"
-                + "\"add Василий Петров vasily.petrov@gmail.com +79215637722\"");
-        }
         Matcher mailMatcher = MAIL_PATTERN.matcher(components[INDEX_EMAIL]);
         Matcher phoneMatcher = PHONE_PATTERN.matcher(components[INDEX_PHONE]);
 
