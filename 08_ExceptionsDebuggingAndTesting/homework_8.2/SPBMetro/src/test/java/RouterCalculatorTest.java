@@ -17,6 +17,7 @@ public class RouterCalculatorTest extends TestCase
   private List<Station> expectedForRouteWithNoConnections;
   private List<Station> expectedForRouteWithOneConnection;
   private List<Station> expectedForRouteWithTwoConnections;
+  private List<Station> expectedForRouteWithSameStations;
 
   @Override
   protected void setUp() throws Exception
@@ -48,6 +49,9 @@ public class RouterCalculatorTest extends TestCase
     expectedForRouteWithTwoConnections.add(stationIndex.getStation("Невский проспект"));
     expectedForRouteWithTwoConnections.add(stationIndex.getStation("Гостиный двор"));
     expectedForRouteWithTwoConnections.add(stationIndex.getStation("Василеостровская"));
+
+    expectedForRouteWithSameStations = new ArrayList<>();
+    expectedForRouteWithSameStations.add(stationIndex.getStation("Василеостровская"));
   }
 
   public void testGetShortestRouteWithOneConnection()
@@ -57,6 +61,15 @@ public class RouterCalculatorTest extends TestCase
     List<Station> actual = routeCalculator.getShortestRoute(from, to);
 
     assertEquals(expectedForRouteWithOneConnection, actual);
+  }
+
+  public void testGetShortestRouteWithSameStations()
+  {
+    Station from = expectedForRouteWithSameStations.get(0);
+    Station to = expectedForRouteWithSameStations.get(expectedForRouteWithSameStations.size()-1);
+    List<Station> actual = routeCalculator.getShortestRoute(from, to);
+
+    assertEquals(expectedForRouteWithSameStations, actual);
   }
 
   public void testGetShortestRouteWithNoConnections()
@@ -98,10 +111,11 @@ public class RouterCalculatorTest extends TestCase
     assertEquals(expected, actual);
   }
 
-  @Override
-  protected void tearDown() throws Exception
+  public void testCalculateDuration3()
   {
-
+    double actual = RouteCalculator.calculateDuration(expectedForRouteWithSameStations);
+    double expected = 0.0;
+    assertEquals(expected, actual);
   }
 
   private static void createStationIndex() {
