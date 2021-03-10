@@ -4,13 +4,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import junit.framework.TestCase;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
-public class RouterCalculatorTest extends TestCase
-{
+public class RouterCalculatorTest {
   private static RouteCalculator routeCalculator;
   private static StationIndex stationIndex;
   private static final String DATA_FILE = "src/main/resources/map.json";
@@ -19,8 +21,8 @@ public class RouterCalculatorTest extends TestCase
   private List<Station> expectedForRouteWithTwoConnections;
   private List<Station> expectedForRouteWithSameStations;
 
-  @Override
-  protected void setUp() throws Exception
+  @Before
+  public void init()
   {
     createStationIndex();
     routeCalculator = new RouteCalculator(stationIndex);
@@ -54,68 +56,85 @@ public class RouterCalculatorTest extends TestCase
     expectedForRouteWithSameStations.add(stationIndex.getStation("Василеостровская"));
   }
 
+  @After
+  public void tearDown()
+  {
+    expectedForRouteWithNoConnections.clear();
+    expectedForRouteWithOneConnection.clear();
+    expectedForRouteWithTwoConnections.clear();
+    expectedForRouteWithSameStations.clear();
+  }
+
+  @Test
   public void testGetShortestRouteWithOneConnection()
   {
     Station from = expectedForRouteWithOneConnection.get(0);
     Station to = expectedForRouteWithOneConnection.get(expectedForRouteWithOneConnection.size()-1);
     List<Station> actual = routeCalculator.getShortestRoute(from, to);
 
-    assertEquals(expectedForRouteWithOneConnection, actual);
+    Assert.assertEquals(expectedForRouteWithOneConnection, actual);
   }
 
+  @Test
   public void testGetShortestRouteWithSameStations()
   {
     Station from = expectedForRouteWithSameStations.get(0);
     Station to = expectedForRouteWithSameStations.get(expectedForRouteWithSameStations.size()-1);
     List<Station> actual = routeCalculator.getShortestRoute(from, to);
 
-    assertEquals(expectedForRouteWithSameStations, actual);
+    Assert.assertEquals(expectedForRouteWithSameStations, actual);
   }
 
+  @Test
   public void testGetShortestRouteWithNoConnections()
   {
     Station from = expectedForRouteWithNoConnections.get(0);
     Station to = expectedForRouteWithNoConnections.get(expectedForRouteWithNoConnections.size()-1);
     List<Station> actual = routeCalculator.getShortestRoute(from, to);
 
-    assertEquals(expectedForRouteWithNoConnections, actual);
+    Assert.assertEquals(expectedForRouteWithNoConnections, actual);
   }
 
+  @Test
   public void testGetShortestRouteWithTwoConnections()
   {
     Station from = expectedForRouteWithTwoConnections.get(0);
     Station to = expectedForRouteWithTwoConnections.get(expectedForRouteWithTwoConnections.size()-1);
     List<Station> actual = routeCalculator.getShortestRoute(from, to);
 
-    assertEquals(expectedForRouteWithTwoConnections, actual);
+    Assert.assertEquals(expectedForRouteWithTwoConnections, actual);
   }
 
+  @Test
   public void testCalculateDuration0()
   {
     double actual = RouteCalculator.calculateDuration(expectedForRouteWithNoConnections);
     double expected = 10;
-    assertEquals(expected, actual);
+    Assert.assertEquals(expected, actual, 0);
   }
 
+  @Test
   public void testCalculateDuration1()
   {
     double actual = RouteCalculator.calculateDuration(expectedForRouteWithOneConnection);
     double expected = 18.5;
-    assertEquals(expected, actual);
+    Assert.assertEquals(expected, actual, 0);
   }
 
+  @Test
   public void testCalculateDuration2()
   {
     double actual = RouteCalculator.calculateDuration(expectedForRouteWithTwoConnections);
     double expected = 14.5;
-    assertEquals(expected, actual);
+    Assert.assertEquals(expected, actual, 0);
   }
 
+  @Test
   public void testCalculateDuration3()
   {
     double actual = RouteCalculator.calculateDuration(expectedForRouteWithSameStations);
     double expected = 0.0;
-    assertEquals(expected, actual);
+    Assert.assertEquals(expected, actual, 0);
   }
 
   private static void createStationIndex() {
@@ -189,7 +208,7 @@ public class RouterCalculatorTest extends TestCase
     StringBuilder builder = new StringBuilder();
     try {
       List<String> lines = Files.readAllLines(Paths.get(DATA_FILE));
-      lines.forEach(line -> builder.append(line));
+      lines.forEach(builder::append);
     } catch (Exception ex) {
       ex.printStackTrace();
     }
