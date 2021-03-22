@@ -43,7 +43,7 @@ public class Main {
 
       fatherName = input.substring(name.length() + 1);
 
-      if (fatherName.indexOf(" ") != -1){
+      if (fatherName.contains(" ")){
         printWarning();
         break;
       }
