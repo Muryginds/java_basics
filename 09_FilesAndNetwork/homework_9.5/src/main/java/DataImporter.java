@@ -8,51 +8,46 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class DataImporter
-{
+public class DataImporter {
+
   private static Elements elements;
+  private static final Logger logger = LogManager.getRootLogger();
   private static final String SITE_ADDRESS = "https://www.moscowmap.ru/metro.html#lines";
   private static final Pattern CONNECTED_STATION = Pattern.compile("class=\"t-icon-metroln ln-(.+?)\" .+? станцию «(.+?)»");
   private static final String CONNECTION_STATION_NAME = ".+class=\"name\">(.+?)<.+";
 
 
-  public static void parseInfoAndImportToFile(String filePath)
-  {
+  public static void parseInfoAndImportToFile(String filePath) {
     try {
       Document doc = Jsoup.connect(SITE_ADDRESS).maxBodySize(0).get();
       elements = doc.select("div[id=metrodata]");
       JSONObject dataObject = parseDataAndCreateJsonObject();
       Files.newBufferedWriter(Paths.get(filePath)).append(dataObject.toJSONString()).close();
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error(e);
     }
   }
 
-  private static JSONObject parseDataAndCreateJsonObject()
-  {
-    Map<String, List<String>> stations = stations();
-    Map<String, String> lines = lines();
-    Map<String, List<Object>> connections = connections();
-
+  private static JSONObject parseDataAndCreateJsonObject() {
     JSONObject obj = new JSONObject();
-    obj.put("stations", stations);
 
-    List<JSONObject> linesList = lines.entrySet().stream().map(entry -> {
-      JSONObject object = new JSONObject();
-      object.put("number", entry.getKey());
-      object.put("name", entry.getValue());
-      return  object;
-    }).collect(Collectors.toList());
-    obj.put("lines" , linesList);
+    importStationsToObject(obj);
+    importLinesToObject(obj);
+    importConnectionsToObject(obj);
 
+    return obj;
+  }
+
+  private static void importConnectionsToObject(JSONObject obj) {
+    Map<String, List<Object>> connections = connections();
     Set<List<JSONObject>> connectionList = connections.entrySet().stream().flatMap(oe -> oe.getValue().stream().map(o -> {
       String element = o.toString();
       String stName = element.replaceAll(CONNECTION_STATION_NAME, "$1");
@@ -75,60 +70,39 @@ public class DataImporter
     })).collect(Collectors.toSet());
 
     obj.put("connections", connectionList);
-
-    return obj;
   }
 
-  private static Map<String, List<String>> stations()
-  {
+  private static void importLinesToObject(JSONObject obj) {
+    Map<String, String> lines = lines();
+    List<JSONObject> linesList = lines.entrySet().stream().map(entry -> {
+      JSONObject object = new JSONObject();
+      object.put("number", entry.getKey());
+      object.put("name", entry.getValue());
+      return  object;
+    }).collect(Collectors.toList());
+    obj.put("lines" , linesList);
+  }
+
+  private static void importStationsToObject(JSONObject obj) {
+    Map<String, List<String>> stations = stations();
+    obj.put("stations", stations);
+  }
+
+  private static Map<String, List<String>> stations() {
     return elements.select("div[class =js-metro-stations t-metrostation-list-table]")
         .stream().collect(Collectors.toMap(element -> element.attr("data-line"),
             element -> element.select("span.name").stream().map(Element::text).collect(Collectors.toList())));
   }
 
-  private static Map<String, String> lines()
-  {
+  private static Map<String, String> lines() {
     return elements.select("span[class ~=js-metro-line t-metrostation-list-header t-icon-metroln]")
         .stream().collect(Collectors.toMap(element -> element.attr("data-line"), Element::text));
   }
 
-  private static Map<String, List<Object>> connections()
-  {
+  private static Map<String, List<Object>> connections() {
     return elements.select("div[class =js-metro-stations t-metrostation-list-table]")
         .stream().collect(Collectors.toMap(element -> element.attr("data-line"),
             element -> element.select("a").stream()
                 .filter(element1 -> element1.toString().contains("переход")).collect(Collectors.toList())));
-  }
-
-  public static void readStationsFromFileAndPrint(String filePath)
-  {
-    JSONParser parser = new JSONParser();
-    JSONObject jsonData = null;
-    try {
-      jsonData = (JSONObject) parser.parse(getJsonFile(filePath));
-    } catch (ParseException e) {
-      e.printStackTrace();
-    }
-
-    JSONObject parseStations = (JSONObject) jsonData.get("stations");
-    parseStations(parseStations);
-  }
-
-  private static void parseStations(JSONObject stationsObject) {
-    Map<String, List<String>> list = (Map<String,List<String>>) stationsObject.keySet().stream()
-        .collect(Collectors.toMap(Object::toString, o -> ((ArrayList<String>) stationsObject.get(o))
-            .size()));
-    System.out.println(list);
-  }
-
-  private static String getJsonFile(String filePath) {
-    StringBuilder builder = new StringBuilder();
-    try {
-      List<String> lines = Files.readAllLines(Paths.get(filePath));
-      lines.forEach(line -> builder.append(line));
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-    return builder.toString();
   }
 }
