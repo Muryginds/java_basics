@@ -199,6 +199,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#GitHUb
+.prm #ssh-key
+.prm.pub
+
 # End of https://www.gitignore.io/api/java,linux,macos,maven,windows,jetbrains
 18_Algorithms/.idea
 **/.idea
