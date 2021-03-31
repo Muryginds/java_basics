@@ -200,8 +200,9 @@ $RECYCLE.BIN/
 *.lnk
 
 #GitHUb
-.prm #ssh-key
-.prm.pub
+#ssh-key
+*.prm
+*.prm.pub
 
 # End of https://www.gitignore.io/api/java,linux,macos,maven,windows,jetbrains
 18_Algorithms/.idea
