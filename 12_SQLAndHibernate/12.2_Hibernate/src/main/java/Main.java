@@ -25,7 +25,7 @@ public class Main {
           .createQuery(Purchase.class);
       criteriaQuery.from(Purchase.class);
       List<Purchase> list = session.createQuery(criteriaQuery).getResultList();
-      list.forEach(System.out::println);
+      list.stream().limit(10).forEach(System.out::println);
 
       List<Object[]> courses = session.createNativeQuery("SELECT name, students_count FROM Courses").getResultList();
       courses.forEach(obj -> System.out.println("Course: " + obj[0] + " - students studying: " + obj[1]));
