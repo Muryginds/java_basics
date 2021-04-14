@@ -2,47 +2,30 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Subscriptions")
-@Data
-public class Subscription{
-
-  @EmbeddedId
-  private Key id;
-
+public class Subscription implements Serializable {
+  @Id
   @ManyToOne(cascade = CascadeType.ALL)
-  @MapsId("studentId")
+  @Getter
+  @Setter
   private Student student;
 
+  @Id
   @ManyToOne(cascade = CascadeType.ALL)
-  @MapsId("courseId")
+  @Getter
+  @Setter
   private Course course;
 
   @Column(name = "subscription_date")
+  @Getter
+  @Setter
   private Date subscriptionDate;
-
-  @Embeddable
-  @Data
-  public static class Key implements Serializable {
-
-    public Key () {}
-    public Key (int studentId, int courseId) {
-      this.studentId = studentId;
-      this.courseId = courseId;
-    }
-
-    @Column(name = "student_id")
-    private int studentId;
-
-    @Column(name = "course_id")
-    private int courseId;
-  }
 }

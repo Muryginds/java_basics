@@ -1,51 +1,39 @@
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Students")
-@Data
 public class Student {
   @Id
   @GeneratedValue (strategy = GenerationType.IDENTITY)
+  @Getter
+  @Setter
   private int id;
 
+  @Getter
+  @Setter
   private String name;
 
+  @Getter
+  @Setter
   private int age;
 
   @Column(name = "registration_date")
+  @Getter
+  @Setter
   private Date registrationDate;
 
   @OneToMany(mappedBy = "student")
+  @Getter
+  @Setter
   private List<Subscription> subscriptions;
-
-  @ManyToMany(cascade = CascadeType.ALL)
-  @JoinTable(name = "LinkedPurchaseList",
-      joinColumns = {@JoinColumn(name = "student_id")},
-      inverseJoinColumns = {@JoinColumn(name = "course_id")})
-  List<Course> purchases;
-
-  @Override
-  public String toString() {
-    return "Student{" +
-        "id=" + id +
-        ", name='" + name + '\'' +
-        ", age=" + age +
-        ", registrationDate=" + registrationDate +
-        ", subscriptionsSize=" + subscriptions.size() +
-        ", purchasesSize=" + purchases.size() + "\n" +
-        '}';
-  }
 }
