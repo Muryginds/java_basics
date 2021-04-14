@@ -11,9 +11,9 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "Subscriptions")
+@Table(name = "LinkedPurchaseList")
 @Data
-public class Subscription{
+public class LinkedPurchaseList {
 
   @EmbeddedId
   private Key id;
@@ -26,6 +26,8 @@ public class Subscription{
   @MapsId("courseId")
   private Course course;
 
+  private int price;
+
   @Column(name = "subscription_date")
   private Date subscriptionDate;
 
@@ -33,7 +35,7 @@ public class Subscription{
   @Data
   public static class Key implements Serializable {
 
-    public Key () {}
+    public Key (){}
     public Key (int studentId, int courseId) {
       this.studentId = studentId;
       this.courseId = courseId;
@@ -44,5 +46,5 @@ public class Subscription{
 
     @Column(name = "course_id")
     private int courseId;
-  }
+    }
 }
