@@ -39,8 +39,12 @@ public class Main {
 //      List<Course> courses = session.createQuery(hql).setMaxResults(3).getResultList();
 //      courses.forEach(course -> System.out.println(course.getName() + " - " + course.getPrice()));
 
-      Subscription subscription = session.get(Subscription.class, new Subscription.Key(1, 10));
-      System.out.println(subscription);
+//      Subscription subscription = session.get(Subscription.class, new Subscription.Key(1, 10));
+//      System.out.println(subscription);
+
+      Student student = session.get(Student.class, 5);
+      student.getPurchases()
+          .forEach(purchase -> System.out.println(purchase.getName()));
     }
   }
 
